@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 import 'statistics.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -83,37 +84,43 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
           Positioned(
             bottom: 16.0,
-            child: Container(
-              width: buttonSize,
-              height: buttonSize,
-              child: FloatingActionButton(
-                onPressed: () async {
-                  try {
-                    await _initializeControllerFuture;
-                    final image = await _controller.takePicture();
-                    final path = join(
-                      (await getTemporaryDirectory()).path,
-                      '${DateTime.now()}.png',
-                    );
-                    await image.saveTo(path);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => StatisticsScreen(imagePath: path),
-                      ),
-                    );
-                  } catch (e) {
-                    print(e);
-                  }
-                },
-                heroTag: 'camera',
-                backgroundColor: Color.fromARGB(255, 18, 143, 82),
-                shape: CircleBorder(),
-                elevation: 10.0,
-                child: Icon(
-                  Icons.camera_alt,
-                  size: buttonSize * 0.5,
-                  color: Colors.white,
+            child: GestureDetector(
+              onTap: () async {
+                try {
+                  await _initializeControllerFuture;
+                  final image = await _controller.takePicture();
+                  final path = join(
+                    (await getTemporaryDirectory()).path,
+                    '${DateTime.now()}.png',
+                  );
+                  await image.saveTo(path);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => StatisticsScreen(imagePath: path),
+                    ),
+                  );
+                } catch (e) {
+                  print(e);
+                }
+              },
+              child: Container(
+                width: buttonSize,
+                height: buttonSize,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/logo.jpeg'),
+                    fit: BoxFit.cover,
+                  ),
+                  //shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
                 ),
               ),
             ),
