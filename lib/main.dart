@@ -28,6 +28,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: CameraScreen(camera: camera),
+      debugShowCheckedModeBanner: false, // Add this line
     );
   }
 }
@@ -55,6 +56,7 @@ class NoCameraApp extends StatelessWidget {
           ),
         ),
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
