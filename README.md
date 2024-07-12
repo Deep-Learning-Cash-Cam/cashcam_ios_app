@@ -1,3 +1,3 @@
-# coincam
+# cashcam
 
 A new Flutter project.

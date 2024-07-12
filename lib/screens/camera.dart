@@ -53,7 +53,7 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('CoinCam'),
+        title: Text('CashCam'),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,

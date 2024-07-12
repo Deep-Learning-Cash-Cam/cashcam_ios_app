@@ -1,4 +1,4 @@
-package com.example.coincam
+package com.example.cashcam
 
 import io.flutter.embedding.android.FlutterActivity
 
