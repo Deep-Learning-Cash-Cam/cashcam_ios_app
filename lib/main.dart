@@ -45,7 +45,14 @@ class NoCameraApp extends StatelessWidget {
           title: Text('Error'),
         ),
         body: Center(
-          child: Text('No camera is available on this device.'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('assets/logo.jpeg'),
+              SizedBox(height: 20),
+              Text('No camera is available on this device.'),
+            ],
+          ),
         ),
       ),
     );
