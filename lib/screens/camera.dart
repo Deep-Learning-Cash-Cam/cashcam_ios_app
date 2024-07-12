@@ -3,7 +3,6 @@ import 'package:camera/camera.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'statistics.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -57,6 +56,7 @@ class _CameraScreenState extends State<CameraScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CashCam'),
+        backgroundColor: const Color.fromARGB(255, 217, 245, 198),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,
@@ -79,6 +79,7 @@ class _CameraScreenState extends State<CameraScreen> {
               child: Icon(Icons.photo_library),
               onPressed: () => _pickImage(context),
               heroTag: 'gallery',
+              foregroundColor: Color.fromARGB(255, 29, 30, 29),
               backgroundColor: const Color.fromARGB(255, 217, 245, 198),
             ),
           ),

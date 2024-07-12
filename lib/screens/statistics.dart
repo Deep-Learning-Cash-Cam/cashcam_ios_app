@@ -75,6 +75,7 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Recognition Results'),
+        backgroundColor: const Color.fromARGB(255, 217, 245, 198),
       ),
       body: SingleChildScrollView(
         child: Column(

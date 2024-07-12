@@ -26,9 +26,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        scaffoldBackgroundColor:
+            const Color.fromARGB(255, 217, 245, 198), // Add this line
       ),
       home: CameraScreen(camera: camera),
-      debugShowCheckedModeBanner: false, // Add this line
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -40,6 +42,8 @@ class NoCameraApp extends StatelessWidget {
       title: 'No Camera Available',
       theme: ThemeData(
         primarySwatch: Colors.red,
+        scaffoldBackgroundColor:
+            const Color.fromARGB(255, 217, 245, 198), // Add this line
       ),
       home: Scaffold(
         appBar: AppBar(
