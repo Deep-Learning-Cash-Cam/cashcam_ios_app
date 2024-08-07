@@ -11,8 +11,9 @@ import 'statistics.dart';
 
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
+  final String selectedCurrency;
 
-  CameraScreen({required this.camera});
+  CameraScreen({required this.camera, required this.selectedCurrency});
 
   @override
   _CameraScreenState createState() => _CameraScreenState();
@@ -61,7 +62,7 @@ class _CameraScreenState extends State<CameraScreen> {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'image': base64Image,
-          'return_currency': 'USD', // Change this as needed
+          'return_currency': widget.selectedCurrency, // Use selected currency
         }),
       );
 
@@ -77,6 +78,8 @@ class _CameraScreenState extends State<CameraScreen> {
               imagePath: imagePath,
               annotatedImageBase64: annotatedImageBase64,
               currencies: currencies,
+              selectedCurrency:
+                  widget.selectedCurrency, // Pass selected currency
             ),
           ),
         );

@@ -16,6 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
   bool _isConnected = false;
+  String _selectedCurrency = 'USD'; // Default value
 
   @override
   void initState() {
@@ -61,7 +62,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CameraScreen(camera: widget.camera),
+        builder: (context) => CameraScreen(
+          camera: widget.camera,
+          selectedCurrency: _selectedCurrency,
+        ),
       ),
     );
   }
@@ -84,6 +88,31 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 "Snap and detect the value of your currency!",
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Select Currency: ',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(width: 10),
+                  DropdownButton<String>(
+                    value: _selectedCurrency,
+                    items: <String>['USD', 'EUR', 'NIS'].map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (newValue) {
+                      setState(() {
+                        _selectedCurrency = newValue!;
+                      });
+                    },
+                  ),
+                ],
               ),
               SizedBox(height: 20),
               Text(

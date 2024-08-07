@@ -198,20 +198,27 @@ class StatisticsScreen extends StatelessWidget {
   final String imagePath;
   final String annotatedImageBase64;
   final Map<String, dynamic> currencies;
+  final String selectedCurrency;
 
   StatisticsScreen({
     required this.imagePath,
     required this.annotatedImageBase64,
     required this.currencies,
+    required this.selectedCurrency,
   });
 
   @override
   Widget build(BuildContext context) {
-    double totalAmount = currencies.values.fold(
-        0.0,
-        (sum, item) =>
-            sum +
-            (double.tryParse(item['return_currency_value'].toString()) ?? 0.0));
+    double totalAmount = currencies.entries.fold(
+      0.0,
+      (sum, entry) {
+        double itemTotalValue =
+            (double.tryParse(currencyDetails[entry.key]?['value'] ?? '0') ??
+                    0.0) *
+                entry.value['quantity'];
+        return sum + itemTotalValue;
+      },
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -224,10 +231,6 @@ class StatisticsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Annotated Image:',
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
               Image.memory(base64Decode(annotatedImageBase64)),
               SizedBox(height: 16),
               Text(
@@ -245,7 +248,7 @@ class StatisticsScreen extends StatelessWidget {
                       ),
                       title: Text(currencyDetails[entry.key]!['name']!),
                       subtitle: Text(
-                          '${entry.value['quantity']} items, ${currencyDetails[entry.key]!['value']} USD each'),
+                          '${entry.value['quantity']} items, ${currencyDetails[entry.key]!['value']} $selectedCurrency each'),
                     ),
                   ),
               SizedBox(height: 16),
@@ -256,7 +259,7 @@ class StatisticsScreen extends StatelessWidget {
               Card(
                 child: ListTile(
                   title: Text('Total'),
-                  subtitle: Text('$totalAmount USD'),
+                  subtitle: Text('$totalAmount $selectedCurrency'),
                 ),
               ),
             ],
