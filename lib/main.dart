@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'screens/camera.dart';
+import 'screens/welcome.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +26,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor:
-            const Color.fromARGB(255, 217, 245, 198), // Add this line
+        scaffoldBackgroundColor: const Color.fromARGB(255, 217, 245, 198),
       ),
-      home: CameraScreen(camera: camera),
+      home: WelcomeScreen(camera: camera),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -42,8 +41,7 @@ class NoCameraApp extends StatelessWidget {
       title: 'No Camera Available',
       theme: ThemeData(
         primarySwatch: Colors.red,
-        scaffoldBackgroundColor:
-            const Color.fromARGB(255, 217, 245, 198), // Add this line
+        scaffoldBackgroundColor: const Color.fromARGB(255, 217, 245, 198),
       ),
       home: Scaffold(
         appBar: AppBar(

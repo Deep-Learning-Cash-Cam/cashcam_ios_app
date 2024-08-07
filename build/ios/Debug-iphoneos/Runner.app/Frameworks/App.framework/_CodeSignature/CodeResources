@@ -10,11 +10,11 @@
 		</data>
 		<key>flutter_assets/AssetManifest.bin</key>
 		<data>
-		Mz0XWFGYKgfLlbO7zGyCsF52csY=
+		yrrCcmHPszN+F4PpDJpawAWsHj4=
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		q8Zt7KH4/QVcqXsaDLRUK3HBKo0=
+		Zl+6f+Cqou57uE4LfZeOuYP+zXE=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/NOTICES.Z</key>
 		<data>
-		pEmGnnj7fQEATe/WqA/dlbKOLR0=
+		VtBsjprMYjfWPDAwdoQnwENiLS8=
 		</data>
 		<key>flutter_assets/assets/EUR_B_10.png</key>
 		<data>
@@ -176,6 +176,10 @@
 		<data>
 		iMjzuOfgiBIKHnq2XFlyhiZukCs=
 		</data>
+		<key>flutter_assets/assets/google_icon.png</key>
+		<data>
+		D8Q/jy5NYgcthgeqHvU8CPMEvkg=
+		</data>
 		<key>flutter_assets/assets/logo.jpeg</key>
 		<data>
 		1/kyRAE+bZFnqph03HFk59Yhod4=
@@ -190,7 +194,7 @@
 		</data>
 		<key>flutter_assets/kernel_blob.bin</key>
 		<data>
-		Vg/xD6mzrPmlsdrL9IvE6BK/uDQ=
+		qIQYzMEU5M+SNPKct4ZnlrITKg0=
 		</data>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -207,14 +211,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tbDzQen3UEG6YusdN56i+hL46NOyUdZZ+5cP0LJEvkU=
+			6P8S9Ik7emFgFm20B9mF2Ew+O9wil5vyXCuyvScignE=
 			</data>
 		</dict>
 		<key>flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E7NcAvI3nKDjLPq79+OOJPjp6DuSmFvlK+qJirhni0A=
+			DCreYnTYkBB51ikXe80ZT0yIFL8Mqu7D8IZAosbJbXk=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -228,7 +232,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Dl/pRkmwZiTFWAZNr/xEFMzPt0goH9okYEW1kVhbzRw=
+			Pc6EuIX22VUH0iaStBRo7agmV91vDOf3PHyNPOzVCRQ=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/EUR_B_10.png</key>
@@ -497,6 +501,13 @@
 			UOwRa92tZ3BpbDKR9+JSyGQWUpD78MCzeZyg6A4UZRg=
 			</data>
 		</dict>
+		<key>flutter_assets/assets/google_icon.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			OQR6Q5VMRiAQb/QMIZCmwLBOSHb9K0CtS6jWmrz/IuY=
+			</data>
+		</dict>
 		<key>flutter_assets/assets/logo.jpeg</key>
 		<dict>
 			<key>hash2</key>
@@ -522,7 +533,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9ehUEIjycam4N0rJpMgvQ8JoVaXih3AbHP6vOMIuclE=
+			LWvmUQdXz0hkzXsMiSosiJc6qACy99udB6npCb4cZvM=
 			</data>
 		</dict>
 		<key>flutter_assets/shaders/ink_sparkle.frag</key>

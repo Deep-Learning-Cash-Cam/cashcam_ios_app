@@ -56,7 +56,7 @@ class _CameraScreenState extends State<CameraScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CashCam'),
-        backgroundColor: const Color.fromARGB(255, 217, 245, 198),
+        backgroundColor: const Color.fromARGB(255, 31, 133, 31),
       ),
       body: FutureBuilder<void>(
         future: _initializeControllerFuture,

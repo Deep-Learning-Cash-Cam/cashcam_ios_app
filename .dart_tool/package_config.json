@@ -128,6 +128,36 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "google_sign_in",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/google_sign_in-5.4.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "google_sign_in_android",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/google_sign_in_android-6.1.28",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
+      "name": "google_sign_in_ios",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/google_sign_in_ios-5.7.6",
+      "packageUri": "lib/",
+      "languageVersion": "3.2"
+    },
+    {
+      "name": "google_sign_in_platform_interface",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/google_sign_in_platform_interface-2.4.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "google_sign_in_web",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/google_sign_in_web-0.10.2+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "http",
       "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/http-1.2.1",
       "packageUri": "lib/",
@@ -184,6 +214,12 @@
     {
       "name": "image_picker_windows",
       "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/image_picker_windows-0.2.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
       "languageVersion": "2.19"
     },
@@ -374,7 +410,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-07-12T12:50:27.660298Z",
+  "generated": "2024-08-07T19:14:18.089720Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/ronmegini/flutter",
