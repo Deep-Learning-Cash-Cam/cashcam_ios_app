@@ -38,7 +38,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		WE9MA6lWEsUwS1ybcPvvgcL+bqM=
+		RbQAtX36Rt7SXsyfq60+U4okAGE=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		vnmpLMnoW76QECfFQ4k4OEZAA9g=
+		NymWSLIx795hfIXSU74IRiSFq3o=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
@@ -62,7 +62,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/NOTICES.Z</key>
 		<data>
-		VtBsjprMYjfWPDAwdoQnwENiLS8=
+		7yaxCnOa1Qa/APTmf+CIX8xPfY8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/EUR_B_10.png</key>
 		<data>
@@ -234,7 +234,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		qIQYzMEU5M+SNPKct4ZnlrITKg0=
+		v2sZzfH2ixGWM6r016kn97rFNKQ=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -246,7 +246,7 @@
 		</data>
 		<key>Frameworks/AppAuth.framework/AppAuth</key>
 		<data>
-		AYhMd6Ij0rjRcB/OOV83AK8O+NI=
+		e8g3z1lEjTNO1gY09cngc+6wle4=
 		</data>
 		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
 		<data>
@@ -354,7 +354,7 @@
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth</key>
 		<data>
-		O1se3pGQFekdcHlqZga4NOO5HJo=
+		U4ol9iID1DSi6wBHoBQPI1sV8Bg=
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
 		<data>
@@ -374,7 +374,7 @@
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<data>
-		QmfXX+GbSRODNOGhoTtG+IUHhKM=
+		0QLH/1lHIgjPp+NZzarMfUlZSxM=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
 		<data>
@@ -402,7 +402,7 @@
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn</key>
 		<data>
-		s6cfYCcSKMo4TjX2CvsgK/T1DzQ=
+		XLixEkGm8fudkSXWtjR6M3ucb/8=
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
 		<data>
@@ -788,7 +788,7 @@
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation</key>
 		<data>
-		rfybrM1HW9m2I8pUKJ7aH+kJjmo=
+		6/7JFMHKzW/r8YgbWMMiToIPBD4=
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation_privacy.bundle/Info.plist</key>
 		<data>
@@ -797,6 +797,18 @@
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation_privacy.bundle/PrivacyInfo.xcprivacy</key>
 		<data>
 		/LX0ZlwxwIAIhjZaDB8EiH5KpXA=
+		</data>
+		<key>Frameworks/flutter_exif_rotation.framework/Info.plist</key>
+		<data>
+		9Bp5pj0VFZ3WZ6ravMkGasr15Uo=
+		</data>
+		<key>Frameworks/flutter_exif_rotation.framework/_CodeSignature/CodeResources</key>
+		<data>
+		NiYRosAxZRS+EaXGmig2MZVFmMM=
+		</data>
+		<key>Frameworks/flutter_exif_rotation.framework/flutter_exif_rotation</key>
+		<data>
+		SBjj3ntreXqk+sG48Ha/UAcoeiI=
 		</data>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
 		<data>
@@ -808,7 +820,7 @@
 		</data>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios</key>
 		<data>
-		BgzoEM8fDARh/JD5lfjARbXwybs=
+		d5CeU3lJ4jrvhNhtSjNPZOfAdco=
 		</data>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios_privacy.bundle/Info.plist</key>
 		<data>
@@ -828,7 +840,7 @@
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation</key>
 		<data>
-		l0OzfTKeb2h9LE9dv5Rp1g3ja/I=
+		C/p+N2e4wcbVsFNyDZxBKrkaIoM=
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation_privacy.bundle/Info.plist</key>
 		<data>
@@ -921,7 +933,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tIM9Kh+1t6ZG7uc8EuGLAyhnZInsJnzMBGGRG/n+eCM=
+			H04yIe9XDg9EFU9vTgzkMJlwFQPJvgE+EsoJMMCiANg=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -935,7 +947,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kMrQjkqV5+NFow5Bv540hBn4j2Sy9shHywTxalljtBk=
+			1AKo8K1Bj6cnbqOUGGwSWL6EavH0YfEBqbYav5Iug8M=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
@@ -963,7 +975,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Pc6EuIX22VUH0iaStBRo7agmV91vDOf3PHyNPOzVCRQ=
+			qaeVbDGXS3XOeW7JB5oEQ/xDFFKTENbqlNbyrwbQAA4=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/EUR_B_10.png</key>
@@ -1264,7 +1276,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LWvmUQdXz0hkzXsMiSosiJc6qACy99udB6npCb4cZvM=
+			Mn/dNS7xujxLt93CBbpVOiAQxHsyEKZh0pEk/K9WZ4Q=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
@@ -1285,7 +1297,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2qxLssYPqcpGluM81MG0IObrpJPmf36Xi/wuqLJAt30=
+			0XSGzeW48E+ABNBcJOM2t+aayV0YRHkYTLsLqIIOy8Q=
 			</data>
 		</dict>
 		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
@@ -1474,7 +1486,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sFepNMfjy9DZB6E1jBjiG9sE5RuTSVE441zVx3nEi4M=
+			eWIbT67963IHWOwyniV+OUBOJ2pq7DJfjXv/FvtXLNQ=
 			</data>
 		</dict>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
@@ -1509,7 +1521,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Q/3kjk6LMf8iVFiDUF5kEFaV0mDmx7xVoLDGr2/3t1I=
+			lfE+VxvP008gdYVQSLujDyy8jkd3R1s1GY92DIzJztY=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
@@ -1558,7 +1570,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hJmJ8AAtoYLTsumff2Mrdk55QUXiNe64BWvogPaOB7g=
+			w+816wpqscDm66Se4PCsNxhVVjHQfNIZbqVPUJmkVnc=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
@@ -1977,7 +1989,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fYK4j+eSScgOcFON/ONEq3gb/5XIA/mfzsPKDvMg6cA=
+			tjjy+GKNf70FniyK+awO1XcJKCdXsGKCh+bAi+2Qfnk=
 			</data>
 		</dict>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation_privacy.bundle/Info.plist</key>
@@ -1992,6 +2004,27 @@
 			<key>hash2</key>
 			<data>
 			bS2g2NkwIn1CjB2TY7CtbjoS4sm2jFzilxWKdBL8jDE=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_exif_rotation.framework/Info.plist</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TXbx3Csw5Kb4nK6iuO4nIxLA9kXp92rAhHDbC23FdPA=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_exif_rotation.framework/_CodeSignature/CodeResources</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			8fATuRnSBHoEQuBOue08gCrePvp4yc1zowSUtElyeC4=
+			</data>
+		</dict>
+		<key>Frameworks/flutter_exif_rotation.framework/flutter_exif_rotation</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TkuNx4IBmNkc9qOzPPog6vw3LwQSlLb/jZUOavVuUcQ=
 			</data>
 		</dict>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
@@ -2012,7 +2045,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HTnGvJ5lnSl6T5vi+3vjzWo9X/IpmUUTOfvgjeHWTRg=
+			alQpFOfWuu128IOSp0F/fRMe5x16wLj/faWJ3CUCG/g=
 			</data>
 		</dict>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios_privacy.bundle/Info.plist</key>
@@ -2047,7 +2080,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YnzhYcTDL9rfzInxSFr/GLPzDU9Pkk3bAigtgKTd2IE=
+			2WNdvcYzAnLL3D+4X+jSPfyWNf55ks+f/IbDTS/cJQU=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation_privacy.bundle/Info.plist</key>

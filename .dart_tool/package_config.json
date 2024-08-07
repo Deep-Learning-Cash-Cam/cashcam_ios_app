@@ -110,6 +110,12 @@
       "languageVersion": "3.3"
     },
     {
+      "name": "flutter_exif_rotation",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/flutter_exif_rotation-0.5.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/flutter_plugin_android_lifecycle-2.0.20",
       "packageUri": "lib/",
@@ -410,7 +416,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-08-07T19:14:18.089720Z",
+  "generated": "2024-08-07T20:15:52.180151Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/ronmegini/flutter",

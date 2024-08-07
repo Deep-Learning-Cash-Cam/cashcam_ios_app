@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:flutter_exif_rotation/flutter_exif_rotation.dart';
 import 'statistics.dart';
 
 class CameraScreen extends StatefulWidget {
@@ -39,11 +43,53 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _pickImage(BuildContext context) async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => StatisticsScreen(imagePath: pickedFile.path),
-        ),
+      File correctedImage =
+          await FlutterExifRotation.rotateImage(path: pickedFile.path);
+      _sendImageToServer(context, correctedImage.path);
+    }
+  }
+
+  Future<void> _sendImageToServer(
+      BuildContext context, String imagePath) async {
+    try {
+      final bytes = await File(imagePath).readAsBytes();
+      final base64Image = base64Encode(bytes);
+
+      final response = await http.post(
+        Uri.parse(
+            'http://ec2-34-236-154-199.compute-1.amazonaws.com/api/predict'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'image': base64Image,
+          'return_currency': 'USD', // Change this as needed
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        final annotatedImageBase64 = responseBody['image'];
+        final currencies = responseBody['currencies'] as Map<String, dynamic>;
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StatisticsScreen(
+              imagePath: imagePath,
+              annotatedImageBase64: annotatedImageBase64,
+              currencies: currencies,
+            ),
+          ),
+        );
+      } else {
+        // Handle server error
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to get response from server')),
+        );
+      }
+    } catch (e) {
+      // Handle client error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
       );
     }
   }
@@ -90,17 +136,14 @@ class _CameraScreenState extends State<CameraScreen> {
                 try {
                   await _initializeControllerFuture;
                   final image = await _controller.takePicture();
+                  File correctedImage =
+                      await FlutterExifRotation.rotateImage(path: image.path);
                   final path = join(
                     (await getTemporaryDirectory()).path,
                     '${DateTime.now()}.png',
                   );
-                  await image.saveTo(path);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => StatisticsScreen(imagePath: path),
-                    ),
-                  );
+                  await correctedImage.copy(path);
+                  _sendImageToServer(context, path);
                 } catch (e) {
                   print(e);
                 }
@@ -113,7 +156,6 @@ class _CameraScreenState extends State<CameraScreen> {
                     image: AssetImage('assets/logo.jpeg'),
                     fit: BoxFit.cover,
                   ),
-                  //shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.2),
