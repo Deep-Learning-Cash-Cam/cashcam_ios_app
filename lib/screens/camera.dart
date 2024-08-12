@@ -58,7 +58,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
       final response = await http.post(
         Uri.parse(
-            'http://ec2-34-236-154-199.compute-1.amazonaws.com/api/predict'),
+            'http://ec2-54-226-32-180.compute-1.amazonaws.com/api/predict'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'image': base64Image,
@@ -66,10 +66,18 @@ class _CameraScreenState extends State<CameraScreen> {
         }),
       );
 
+      print('Server response status code: ${response.statusCode}');
+      print('Server response body: ${response.body}');
+
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
         final annotatedImageBase64 = responseBody['image'];
         final currencies = responseBody['currencies'] as Map<String, dynamic>;
+
+        // Extract the 'return_currency_value' from the specific currency
+        final currencyData = currencies.entries.first.value;
+        final returnCurrencyValue =
+            (currencyData['return_currency_value'] as num).toDouble();
 
         Navigator.push(
           context,
@@ -80,6 +88,8 @@ class _CameraScreenState extends State<CameraScreen> {
               currencies: currencies,
               selectedCurrency:
                   widget.selectedCurrency, // Pass selected currency
+              returnCurrencyValue:
+                  returnCurrencyValue, // Pass return_currency_value
             ),
           ),
         );
