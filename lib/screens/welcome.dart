@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'camera.dart';
@@ -15,8 +16,13 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
-  bool _isConnected = false;
+  bool _isConnected = false; // Ensure this is defined and initialized
   String _selectedCurrency = 'USD'; // Default value
+  String? _userName; // Store the user's name after login
+  String? _userEmail; // Store the user's email after login
+  String? _userPhotoUrl; // Store the user's profile photo URL
+
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
   @override
   void initState() {
@@ -27,7 +33,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Future<void> _checkConnectivity() async {
     try {
       final response = await http.get(
-        Uri.parse('http://ec2-54-197-155-194.compute-1.amazonaws.com/'),
+        Uri.parse('http://ec2-54-197-155-194.compute-1.amazonaws.com'),
         headers: {'Content-Type': 'application/json'},
       ).timeout(const Duration(seconds: 10));
 
@@ -58,6 +64,53 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     }
   }
 
+  Future<void> _handleGoogleSignIn() async {
+    print('Attempting Google sign-in...'); // Log the login attempt
+    try {
+      GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      if (googleUser != null) {
+        GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        String idToken = googleAuth.idToken!;
+
+        setState(() {
+          _userName = googleUser.displayName;
+          _userEmail = googleUser.email;
+          _userPhotoUrl = googleUser.photoUrl; // Get the user's profile photo
+        });
+
+        print('Google sign-in successful!'); // Log successful login
+        print('User Email: $_userEmail'); // Log user email
+        print('ID Token: $idToken'); // Log the ID token
+
+        _sendIdTokenToBackend(idToken);
+      }
+    } catch (error) {
+      print('Google sign-in failed: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Google sign-in failed')),
+      );
+    }
+  }
+
+  Future<void> _sendIdTokenToBackend(String idToken) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://ec2-54-197-155-194.compute-1.amazonaws.com/auth/google-signin'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'idToken': idToken}),
+      );
+
+      if (response.statusCode == 200) {
+        _continueToApp();
+      } else {
+        print('Server error: ${response.body}');
+      }
+    } catch (e) {
+      print('Failed to connect to backend: $e');
+    }
+  }
+
   void _continueToApp() {
     Navigator.push(
       context,
@@ -84,12 +137,68 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              // Application Logo (Original Shape)
+              Image.asset(
+                'assets/logo.jpeg',
+                height: 100,
+              ),
+              SizedBox(height: 20),
+
+              // User Profile Section
+              if (_userName != null)
+                Card(
+                  elevation: 4.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Row(
+                      children: [
+                        // Profile Picture
+                        CircleAvatar(
+                          radius: 40,
+                          backgroundImage: _userPhotoUrl != null
+                              ? NetworkImage(_userPhotoUrl!)
+                              : AssetImage('assets/default_user.png')
+                                  as ImageProvider,
+                        ),
+                        SizedBox(width: 20),
+
+                        // User Details
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Welcome $_userName',
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              '$_userEmail',
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.normal),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              SizedBox(height: 20),
+
+              // Description Text
               Text(
                 "Snap and detect the value of your currency!",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.black54),
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
+
+              // Currency Selection
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -115,6 +224,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ],
               ),
               SizedBox(height: 20),
+
+              // Connectivity Message
               Text(
                 _connectivityMessage,
                 style: TextStyle(
@@ -123,27 +234,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
-              SizedBox(
-                width: 100,
-                height: 100,
-                child: IconButton(
-                  icon: Image.asset('assets/google_icon.png'),
-                  onPressed: () {
-                    // Future Google Sign-In logic can be added here
-                  },
+
+              // Google Sign-In Button
+              if (_userName == null)
+                SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: IconButton(
+                    icon: Image.asset('assets/google_icon.png'),
+                    onPressed: _handleGoogleSignIn,
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: _isConnected ? _continueToApp : null,
-                child: Text('Continue to App'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 31, 133, 31),
-                  foregroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                  textStyle: TextStyle(fontSize: 18),
+
+              // Continue to App Button (after login)
+              if (_userName != null)
+                ElevatedButton(
+                  onPressed: _isConnected ? _continueToApp : null,
+                  child: Text('Continue to App'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 31, 133, 31),
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    textStyle: TextStyle(fontSize: 18),
+                  ),
                 ),
-              ),
             ],
           ),
         ),
