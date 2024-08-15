@@ -23,6 +23,7 @@ class _CameraScreenState extends State<CameraScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   final ImagePicker _picker = ImagePicker();
+  bool _isLoading = false; // Add loading state
 
   @override
   void initState() {
@@ -52,13 +53,17 @@ class _CameraScreenState extends State<CameraScreen> {
 
   Future<void> _sendImageToServer(
       BuildContext context, String imagePath) async {
+    setState(() {
+      _isLoading = true; // Set loading state to true
+    });
+
     try {
       final bytes = await File(imagePath).readAsBytes();
       final base64Image = base64Encode(bytes);
 
       final response = await http.post(
         Uri.parse(
-            'http://ec2-54-226-32-180.compute-1.amazonaws.com/api/predict'),
+            'http://ec2-54-197-155-194.compute-1.amazonaws.com/api/predict'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'image': base64Image,
@@ -79,6 +84,10 @@ class _CameraScreenState extends State<CameraScreen> {
         final returnCurrencyValue =
             (currencyData['return_currency_value'] as num).toDouble();
 
+        setState(() {
+          _isLoading = false; // Set loading state to false
+        });
+
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -94,12 +103,20 @@ class _CameraScreenState extends State<CameraScreen> {
           ),
         );
       } else {
+        setState(() {
+          _isLoading = false; // Set loading state to false
+        });
+
         // Handle server error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to get response from server')),
         );
       }
     } catch (e) {
+      setState(() {
+        _isLoading = false; // Set loading state to false
+      });
+
       // Handle client error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
@@ -117,15 +134,33 @@ class _CameraScreenState extends State<CameraScreen> {
         title: Text('CashCam'),
         backgroundColor: const Color.fromARGB(255, 31, 133, 31),
       ),
-      body: FutureBuilder<void>(
-        future: _initializeControllerFuture,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return CameraPreview(_controller);
-          } else {
-            return Center(child: CircularProgressIndicator());
-          }
-        },
+      body: Stack(
+        children: [
+          FutureBuilder<void>(
+            future: _initializeControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return CameraPreview(_controller);
+              } else {
+                return Center(
+                  child: CircularProgressIndicator(
+                    color:
+                        const Color.fromARGB(255, 31, 133, 31), // Green color
+                  ),
+                );
+              }
+            },
+          ),
+          if (_isLoading) // Show loading indicator when loading
+            Container(
+              color: Colors.black54,
+              child: Center(
+                child: CircularProgressIndicator(
+                  color: const Color.fromARGB(255, 31, 133, 31), // Green color
+                ),
+              ),
+            ),
+        ],
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Stack(
@@ -136,7 +171,9 @@ class _CameraScreenState extends State<CameraScreen> {
             bottom: 16.0,
             child: FloatingActionButton(
               child: Icon(Icons.photo_library),
-              onPressed: () => _pickImage(context),
+              onPressed: _isLoading
+                  ? null
+                  : () => _pickImage(context), // Disable button when loading
               heroTag: 'gallery',
               foregroundColor: Color.fromARGB(255, 29, 30, 29),
               backgroundColor: const Color.fromARGB(255, 217, 245, 198),
@@ -145,22 +182,25 @@ class _CameraScreenState extends State<CameraScreen> {
           Positioned(
             bottom: 16.0,
             child: GestureDetector(
-              onTap: () async {
-                try {
-                  await _initializeControllerFuture;
-                  final image = await _controller.takePicture();
-                  File correctedImage =
-                      await FlutterExifRotation.rotateImage(path: image.path);
-                  final path = join(
-                    (await getTemporaryDirectory()).path,
-                    '${DateTime.now()}.png',
-                  );
-                  await correctedImage.copy(path);
-                  _sendImageToServer(context, path);
-                } catch (e) {
-                  print(e);
-                }
-              },
+              onTap: _isLoading
+                  ? null
+                  : () async {
+                      try {
+                        await _initializeControllerFuture;
+                        final image = await _controller.takePicture();
+                        File correctedImage =
+                            await FlutterExifRotation.rotateImage(
+                                path: image.path);
+                        final path = join(
+                          (await getTemporaryDirectory()).path,
+                          '${DateTime.now()}.png',
+                        );
+                        await correctedImage.copy(path);
+                        _sendImageToServer(context, path);
+                      } catch (e) {
+                        print(e);
+                      }
+                    },
               child: Container(
                 width: buttonSize,
                 height: buttonSize,

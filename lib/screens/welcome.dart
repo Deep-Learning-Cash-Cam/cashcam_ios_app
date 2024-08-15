@@ -27,7 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Future<void> _checkConnectivity() async {
     try {
       final response = await http.get(
-        Uri.parse('http://ec2-54-226-32-180.compute-1.amazonaws.com/'),
+        Uri.parse('http://ec2-54-197-155-194.compute-1.amazonaws.com/'),
         headers: {'Content-Type': 'application/json'},
       ).timeout(const Duration(seconds: 10));
 
