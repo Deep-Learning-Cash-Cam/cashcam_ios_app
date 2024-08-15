@@ -38,7 +38,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		x7KzZIQdjiAS+uiCr8vz4Hg6Gjs=
+		XnpiqiYVlTXX8QTougKPTPDtNEs=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -46,15 +46,15 @@
 		</data>
 		<key>Frameworks/App.framework/_CodeSignature/CodeResources</key>
 		<data>
-		noI5+mN36Pn74j6CSMLUpWnPCZs=
+		2E1ScjhYW/7asb9S5YqptoAUlG0=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<data>
-		yrrCcmHPszN+F4PpDJpawAWsHj4=
+		yq382NHA5rVs3p0vUBtQJpfDHx8=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<data>
-		Zl+6f+Cqou57uE4LfZeOuYP+zXE=
+		5UA+QxYS/acAbPIQX5ECAsATTTU=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
 		<data>
@@ -216,6 +216,10 @@
 		<data>
 		iMjzuOfgiBIKHnq2XFlyhiZukCs=
 		</data>
+		<key>Frameworks/App.framework/flutter_assets/assets/default_user.png</key>
+		<data>
+		MkVN+hrweVJzjId5ku/52XXDa5Q=
+		</data>
 		<key>Frameworks/App.framework/flutter_assets/assets/google_icon.png</key>
 		<data>
 		D8Q/jy5NYgcthgeqHvU8CPMEvkg=
@@ -234,7 +238,7 @@
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/kernel_blob.bin</key>
 		<data>
-		QefjU8BUZVbsENJGE1H00xrbkhk=
+		CIcz2yqrkqKv+92C2f9IwA6LXSM=
 		</data>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
 		<data>
@@ -246,7 +250,7 @@
 		</data>
 		<key>Frameworks/AppAuth.framework/AppAuth</key>
 		<data>
-		ErVf0UH+QMd1bTpkw5k/iisGUC0=
+		vZFXSpiVd2BnvxwVfcUjROSadJA=
 		</data>
 		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
 		<data>
@@ -354,7 +358,7 @@
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth</key>
 		<data>
-		RnPSFQk16bXchnjD0ZxGaNnp2SM=
+		atCaZ1fnXo7KTWnm1c88PVuGZfY=
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
 		<data>
@@ -374,7 +378,7 @@
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<data>
-		vrsRUw+ycTwJPkY+DbYhTUCl4DA=
+		ItXwJTBVV1a7RgvHY7gRSHfToRs=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
 		<data>
@@ -402,7 +406,7 @@
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn</key>
 		<data>
-		tZmSC+cUQNrs+H2Cskcx0uIgCm8=
+		tS30+io/ZjDPLsVkJf9VVyQ3jYw=
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
 		<data>
@@ -788,7 +792,7 @@
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation</key>
 		<data>
-		/yaIiBxnQzTcTn59hFlGvgoHLW0=
+		ZLl5FArcRX46MxUmAGfbCdOYuIY=
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation_privacy.bundle/Info.plist</key>
 		<data>
@@ -808,7 +812,7 @@
 		</data>
 		<key>Frameworks/flutter_exif_rotation.framework/flutter_exif_rotation</key>
 		<data>
-		6/CLZEPudjKX1Ssz1BV0nM51z6Y=
+		EY37sSKaa/uocCRqfPJuxoCMsfU=
 		</data>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
 		<data>
@@ -820,7 +824,7 @@
 		</data>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios</key>
 		<data>
-		lQu+5cy/iA5ikEPdpRfbF2Nl22k=
+		B/rOjuSo1rTqQ7GntemyemjQ2HU=
 		</data>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios_privacy.bundle/Info.plist</key>
 		<data>
@@ -840,7 +844,7 @@
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation</key>
 		<data>
-		6xi7xsWDgVM9LiYx+3e7rZFqzho=
+		TU9r5tFJ1mlOr3sCiy5Y44/B0SE=
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation_privacy.bundle/Info.plist</key>
 		<data>
@@ -933,7 +937,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fVaQ73r/C5YhIYg9F9HJxlh9v0edwAbZNrMPB/P6CCA=
+			hB+2DdTAng8dT3FBDNyk9Fu0Hl6da8iy4Qjy0Xia8jI=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -947,21 +951,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fhKDQoGOqwoXbqmkGqcowdLz3l/Ky1GmGSzcR0kJ1ow=
+			AF6Ln8+yuo4gParICtPnXwJEncS/AFoZX5XYiLZeadU=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.bin</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6P8S9Ik7emFgFm20B9mF2Ew+O9wil5vyXCuyvScignE=
+			1ExuHVqOfh/HSNXEyI/UBt+M8D3Sdo1slw9YZr0yVJY=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/AssetManifest.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DCreYnTYkBB51ikXe80ZT0yIFL8Mqu7D8IZAosbJbXk=
+			qauhXu5UTEbhMj4ZsM5sfBnOtFcK0Ci/Ac4UO9OfTIM=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/FontManifest.json</key>
@@ -1244,6 +1248,13 @@
 			UOwRa92tZ3BpbDKR9+JSyGQWUpD78MCzeZyg6A4UZRg=
 			</data>
 		</dict>
+		<key>Frameworks/App.framework/flutter_assets/assets/default_user.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			oPjOel1ZcOOHQbrpurcAjONmeYe48M8HqQLdmiX50Ms=
+			</data>
+		</dict>
 		<key>Frameworks/App.framework/flutter_assets/assets/google_icon.png</key>
 		<dict>
 			<key>hash2</key>
@@ -1276,7 +1287,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			k83iMpmMpLOhyUzAeXZ6nC6nsLFJpB3/7V1hTT1as/A=
+			N5KyB2Qb9zWDM+nJtpW1E83LJ98s0cqoysDTW2ILMrs=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/flutter_assets/shaders/ink_sparkle.frag</key>
@@ -1297,7 +1308,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Y+53l0MjbyRpudXw5xOAx2ZoYWPdMD/z+ffTW3FPkN0=
+			Bi+G/CeG+2WPTyFjub8bdroAcDb2mUAy0oeQrnPP72k=
 			</data>
 		</dict>
 		<key>Frameworks/AppAuth.framework/AppAuthCore_Privacy.bundle/Info.plist</key>
@@ -1486,7 +1497,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TyZES5V4IP2zM/nEehVAqCpVWsETFo7U3v8VMzQkERU=
+			+E96Y3u7L0WvTMaCyb0fE0fgc4OweMsgBy7zBKF7Ki0=
 			</data>
 		</dict>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth_Privacy.bundle/Info.plist</key>
@@ -1521,7 +1532,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Z7TYYIR4tACD3UpfhuQtxJESUhY7rpWiMQuZ2rCFSuA=
+			YuSpMEqrRP8uGQA+8L+M2NAaZ/nf9Qk2E1+aQ8h1yYk=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher_Core_Privacy.bundle/Info.plist</key>
@@ -1570,7 +1581,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DVa7gR4FUL3KpNhozdtp0pcdGHkRgUSYPtwe6y/QfOY=
+			Cv0pf3HWROQPhs+OXr+4tr5PnGhyJk+v9wJzndUZDWU=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
@@ -1989,7 +2000,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aREt0mdMdstIE6unezIif57JVlhHauwVvUQBxYNCfdw=
+			dxhPkyAGX10i6RdnvGw4JG4qAGm9RJz9u9G7dWq9CYI=
 			</data>
 		</dict>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation_privacy.bundle/Info.plist</key>
@@ -2024,7 +2035,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ihfNH6KfycLiC3OxcUOlJQR6Nsh8u6HntlPAms9qgXE=
+			xSC+N/JnrAv0VPymtIadCvmmTN5AbngFwK2eVHFFUnU=
 			</data>
 		</dict>
 		<key>Frameworks/image_picker_ios.framework/Info.plist</key>
@@ -2045,7 +2056,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5Dz5X4rUl1LqFup2ge0jtQQM9XAMBMeWV8oyzMAk4HY=
+			ItNbzfcBrss+NwfLR/S4YUDGrYILZ7xeDuqxRSwd4Ns=
 			</data>
 		</dict>
 		<key>Frameworks/image_picker_ios.framework/image_picker_ios_privacy.bundle/Info.plist</key>
@@ -2080,7 +2091,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ohotMOs/nYC6Sosjwmh3ztdrbvWh9lCZEb+WqmKVNNs=
+			K1biIgDL0XFl/O0O4WO1Ktklu8bEI6bKrMVK2tla09k=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation_privacy.bundle/Info.plist</key>

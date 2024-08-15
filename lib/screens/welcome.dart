@@ -16,7 +16,7 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
-  bool _isConnected = false; // Ensure this is defined and initialized
+  bool _isConnected = false; // Initialize _isConnected to false
   String _selectedCurrency = 'USD'; // Default value
   String? _userName; // Store the user's name after login
   String? _userEmail; // Store the user's email after login
@@ -42,7 +42,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         if (responseBody['message'] == 'Welcome to CashCam!') {
           setState(() {
             _connectivityMessage = 'Server Available';
-            _isConnected = true;
+            _isConnected =
+                true; // Set _isConnected to true when the server is available
           });
         } else {
           setState(() {
@@ -127,7 +128,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to CashCam'),
+        title: Text('CashCam'),
         backgroundColor: const Color.fromARGB(255, 0, 128, 0),
       ),
       body: Center(
@@ -198,34 +199,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               SizedBox(height: 20),
 
-              // Currency Selection
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Select Currency: ',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(width: 10),
-                  DropdownButton<String>(
-                    value: _selectedCurrency,
-                    items: <String>['USD', 'EUR', 'NIS'].map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        _selectedCurrency = newValue!;
-                      });
-                    },
-                  ),
-                ],
-              ),
-              SizedBox(height: 20),
-
-              // Connectivity Message
+              // Connectivity Message (Always displayed)
               Text(
                 _connectivityMessage,
                 style: TextStyle(
@@ -235,16 +209,46 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               SizedBox(height: 20),
 
-              // Google Sign-In Button
+              // Instructional Text for Google Login (only shown if user is not logged in)
               if (_userName == null)
-                SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: IconButton(
-                    icon: Image.asset('assets/google_icon.png'),
-                    onPressed: _handleGoogleSignIn,
-                  ),
+                Column(
+                  children: [
+                    Text(
+                      "Press the Google logo to sign in",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 10),
+
+                    // Google Sign-In Button with Press Indicator
+                    InkWell(
+                      onTap: _handleGoogleSignIn,
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 7,
+                              offset: Offset(0, 3),
+                            ),
+                          ],
+                        ),
+                        child: Image.asset('assets/google_icon.png'),
+                      ),
+                    ),
+                  ],
                 ),
+              SizedBox(height: 20),
 
               // Continue to App Button (after login)
               if (_userName != null)
