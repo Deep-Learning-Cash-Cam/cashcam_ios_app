@@ -12,8 +12,15 @@ import 'statistics.dart';
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
   final String selectedCurrency;
+  final String accessToken; // Add accessToken
+  final String tokenType; // Add tokenType
 
-  CameraScreen({required this.camera, required this.selectedCurrency});
+  CameraScreen({
+    required this.camera,
+    required this.selectedCurrency,
+    required this.accessToken, // Add accessToken
+    required this.tokenType, // Add tokenType
+  });
 
   @override
   _CameraScreenState createState() => _CameraScreenState();
@@ -61,14 +68,27 @@ class _CameraScreenState extends State<CameraScreen> {
       final bytes = await File(imagePath).readAsBytes();
       final base64Image = base64Encode(bytes);
 
+      // Prepare the headers and body
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization':
+            '${widget.tokenType} ${widget.accessToken}', // Add Authorization header
+      };
+      final body = jsonEncode({
+        'image': base64Image,
+        'return_currency': widget.selectedCurrency, // Use selected currency
+      });
+
+      // Debug print the headers and body
+      print('Sending POST request to server...');
+      print('Headers: $headers');
+      print('Body: $body');
+
       final response = await http.post(
         Uri.parse(
             'http://ec2-54-197-155-194.compute-1.amazonaws.com/api/predict'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'image': base64Image,
-          'return_currency': widget.selectedCurrency, // Use selected currency
-        }),
+        headers: headers,
+        body: body,
       );
 
       print('Server response status code: ${response.statusCode}');
