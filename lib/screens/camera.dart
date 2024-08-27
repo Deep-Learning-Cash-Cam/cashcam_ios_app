@@ -113,7 +113,6 @@ class _CameraScreenState extends State<CameraScreen> {
               annotatedImageBase64: annotatedImageBase64,
               currencies: currencies,
               selectedCurrency: widget.selectedCurrency,
-              returnCurrencyValue: returnCurrencyValue,
             ),
           ),
         );

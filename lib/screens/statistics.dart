@@ -47,14 +47,12 @@ class StatisticsScreen extends StatelessWidget {
   final String annotatedImageBase64;
   final Map<String, dynamic> currencies;
   final String selectedCurrency;
-  final double returnCurrencyValue;
 
   StatisticsScreen({
     required this.imagePath,
     required this.annotatedImageBase64,
     required this.currencies,
     required this.selectedCurrency,
-    required this.returnCurrencyValue,
   });
 
   @override
@@ -62,7 +60,8 @@ class StatisticsScreen extends StatelessWidget {
     double totalAmount = currencies.entries.fold(
       0.0,
       (sum, entry) {
-        double itemTotalValue = entry.value['quantity'] * returnCurrencyValue;
+        double itemTotalValue =
+            entry.value['quantity'] * entry.value['return_currency_value'];
         return sum + itemTotalValue;
       },
     );
@@ -95,7 +94,7 @@ class StatisticsScreen extends StatelessWidget {
                       ),
                       title: Text(currencyDetails[entry.key]!['name']!),
                       subtitle: Text(
-                        '${entry.value['quantity']} items, ${entry.value['quantity'] * returnCurrencyValue} $selectedCurrency',
+                        '${entry.value['quantity']} items, ${entry.value['quantity'] * entry.value['return_currency_value']} $selectedCurrency',
                       ),
                     ),
                   ),

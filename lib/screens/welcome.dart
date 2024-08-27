@@ -17,7 +17,7 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
   bool _isConnected = false; // Initialize _isConnected to false
-  String _selectedCurrency = 'USD'; // Default value
+  String _selectedCurrency = 'NIS'; // Default value
   String? _userName; // Store the user's name after login
   String? _userEmail; // Store the user's email after login
   String? _userPhotoUrl; // Store the user's profile photo URL
@@ -110,7 +110,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         _tokenType = responseBody['token_type'];
 
         print('Server login response: ${response.body}');
-        _continueToApp();
+        // Now wait for the user to press "Continue to App"
       } else {
         print('Server error: ${response.body}');
       }
@@ -217,6 +217,39 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
+
+              // Currency Selection Dropdown (only shown if user is logged in)
+              if (_userName != null)
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Select Currency: ',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(width: 10),
+                        DropdownButton<String>(
+                          value: _selectedCurrency,
+                          items:
+                              <String>['NIS', 'USD', 'EUR'].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedCurrency = newValue!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
 
               // Instructional Text for Google Login (only shown if user is not logged in)
               if (_userName == null)
