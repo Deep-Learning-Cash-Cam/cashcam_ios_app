@@ -17,10 +17,12 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
   bool _isConnected = false; // Initialize _isConnected to false
-  String _selectedCurrency = 'USD'; // Default value
+  String _selectedCurrency = 'NIS'; // Default value
   String? _userName; // Store the user's name after login
   String? _userEmail; // Store the user's email after login
   String? _userPhotoUrl; // Store the user's profile photo URL
+  String? _accessToken; // Store the access token
+  String? _tokenType; // Store the token type
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -42,8 +44,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         if (responseBody['message'] == 'Welcome to CashCam!') {
           setState(() {
             _connectivityMessage = 'Server Available';
-            _isConnected =
-                true; // Set _isConnected to true when the server is available
+            _isConnected = true;
           });
         } else {
           setState(() {
@@ -81,9 +82,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
         print('Google sign-in successful!'); // Log successful login
         print('User Email: $_userEmail'); // Log user email
+        print('Display Name: $_userName'); // Log display name
         print('ID Token: $idToken'); // Log the ID token
 
-        _sendIdTokenToBackend(idToken);
+        await _sendIdTokenToBackend(idToken);
       }
     } catch (error) {
       print('Google sign-in failed: $error');
@@ -99,11 +101,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         Uri.parse(
             'http://ec2-54-197-155-194.compute-1.amazonaws.com/auth/google-signin'),
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'idToken': idToken}),
+        body: jsonEncode({'token_id': idToken}),
       );
 
       if (response.statusCode == 200) {
-        _continueToApp();
+        final responseBody = jsonDecode(response.body);
+        _accessToken = responseBody['access_token'];
+        _tokenType = responseBody['token_type'];
+
+        print('Server login response: ${response.body}');
+        // Now wait for the user to press "Continue to App"
       } else {
         print('Server error: ${response.body}');
       }
@@ -119,6 +126,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         builder: (context) => CameraScreen(
           camera: widget.camera,
           selectedCurrency: _selectedCurrency,
+          accessToken: _accessToken!, // Pass access token
+          tokenType: _tokenType!, // Pass token type
         ),
       ),
     );
@@ -208,6 +217,39 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
+
+              // Currency Selection Dropdown (only shown if user is logged in)
+              if (_userName != null)
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Select Currency: ',
+                          style: TextStyle(fontSize: 18),
+                        ),
+                        SizedBox(width: 10),
+                        DropdownButton<String>(
+                          value: _selectedCurrency,
+                          items:
+                              <String>['NIS', 'USD', 'EUR'].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              _selectedCurrency = newValue!;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                  ],
+                ),
 
               // Instructional Text for Google Login (only shown if user is not logged in)
               if (_userName == null)

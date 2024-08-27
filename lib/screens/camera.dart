@@ -12,8 +12,15 @@ import 'statistics.dart';
 class CameraScreen extends StatefulWidget {
   final CameraDescription camera;
   final String selectedCurrency;
+  final String accessToken;
+  final String tokenType;
 
-  CameraScreen({required this.camera, required this.selectedCurrency});
+  CameraScreen({
+    required this.camera,
+    required this.selectedCurrency,
+    required this.accessToken,
+    required this.tokenType,
+  });
 
   @override
   _CameraScreenState createState() => _CameraScreenState();
@@ -23,7 +30,7 @@ class _CameraScreenState extends State<CameraScreen> {
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
   final ImagePicker _picker = ImagePicker();
-  bool _isLoading = false; // Add loading state
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -32,7 +39,6 @@ class _CameraScreenState extends State<CameraScreen> {
       widget.camera,
       ResolutionPreset.high,
     );
-
     _initializeControllerFuture = _controller.initialize();
   }
 
@@ -54,25 +60,36 @@ class _CameraScreenState extends State<CameraScreen> {
   Future<void> _sendImageToServer(
       BuildContext context, String imagePath) async {
     setState(() {
-      _isLoading = true; // Set loading state to true
+      _isLoading = true;
     });
 
     try {
+      // Check if the image file exists
+      if (!await File(imagePath).exists()) {
+        throw Exception("Image file does not exist at the path: $imagePath");
+      }
+
+      // Read and encode the image to base64
       final bytes = await File(imagePath).readAsBytes();
       final base64Image = base64Encode(bytes);
 
+      // Prepare the headers and body
+      final headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${widget.accessToken}',
+      };
+      final body = jsonEncode({
+        'image': base64Image,
+        'return_currency': widget.selectedCurrency,
+      });
+
+      // Send the request to the server
       final response = await http.post(
         Uri.parse(
             'http://ec2-54-197-155-194.compute-1.amazonaws.com/api/predict'),
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          'image': base64Image,
-          'return_currency': widget.selectedCurrency, // Use selected currency
-        }),
+        headers: headers,
+        body: body,
       );
-
-      print('Server response status code: ${response.statusCode}');
-      print('Server response body: ${response.body}');
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
@@ -85,7 +102,7 @@ class _CameraScreenState extends State<CameraScreen> {
             (currencyData['return_currency_value'] as num).toDouble();
 
         setState(() {
-          _isLoading = false; // Set loading state to false
+          _isLoading = false;
         });
 
         Navigator.push(
@@ -95,29 +112,22 @@ class _CameraScreenState extends State<CameraScreen> {
               imagePath: imagePath,
               annotatedImageBase64: annotatedImageBase64,
               currencies: currencies,
-              selectedCurrency:
-                  widget.selectedCurrency, // Pass selected currency
-              returnCurrencyValue:
-                  returnCurrencyValue, // Pass return_currency_value
+              selectedCurrency: widget.selectedCurrency,
             ),
           ),
         );
       } else {
         setState(() {
-          _isLoading = false; // Set loading state to false
+          _isLoading = false;
         });
-
-        // Handle server error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Failed to get response from server')),
         );
       }
     } catch (e) {
       setState(() {
-        _isLoading = false; // Set loading state to false
+        _isLoading = false;
       });
-
-      // Handle client error
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
@@ -144,19 +154,18 @@ class _CameraScreenState extends State<CameraScreen> {
               } else {
                 return Center(
                   child: CircularProgressIndicator(
-                    color:
-                        const Color.fromARGB(255, 31, 133, 31), // Green color
+                    color: const Color.fromARGB(255, 31, 133, 31),
                   ),
                 );
               }
             },
           ),
-          if (_isLoading) // Show loading indicator when loading
+          if (_isLoading)
             Container(
               color: Colors.black54,
               child: Center(
                 child: CircularProgressIndicator(
-                  color: const Color.fromARGB(255, 31, 133, 31), // Green color
+                  color: const Color.fromARGB(255, 31, 133, 31),
                 ),
               ),
             ),
@@ -171,9 +180,7 @@ class _CameraScreenState extends State<CameraScreen> {
             bottom: 16.0,
             child: FloatingActionButton(
               child: Icon(Icons.photo_library),
-              onPressed: _isLoading
-                  ? null
-                  : () => _pickImage(context), // Disable button when loading
+              onPressed: _isLoading ? null : () => _pickImage(context),
               heroTag: 'gallery',
               foregroundColor: Color.fromARGB(255, 29, 30, 29),
               backgroundColor: const Color.fromARGB(255, 217, 245, 198),
