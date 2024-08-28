@@ -224,6 +224,12 @@
       "languageVersion": "2.19"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///Users/ronmegini/.pub-cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
@@ -416,7 +422,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-08-15T19:44:21.972328Z",
+  "generated": "2024-08-28T21:05:58.270600Z",
   "generator": "pub",
   "generatorVersion": "3.4.3",
   "flutterRoot": "file:///Users/ronmegini/flutter",

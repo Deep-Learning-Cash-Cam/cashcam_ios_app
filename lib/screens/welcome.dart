@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'camera.dart';
+import 'gallery.dart'; // Import the gallery page
 import 'package:camera/camera.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -16,13 +17,13 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   String _connectivityMessage = 'Checking connectivity...';
-  bool _isConnected = false; // Initialize _isConnected to false
-  String _selectedCurrency = 'NIS'; // Default value
-  String? _userName; // Store the user's name after login
-  String? _userEmail; // Store the user's email after login
-  String? _userPhotoUrl; // Store the user's profile photo URL
-  String? _accessToken; // Store the access token
-  String? _tokenType; // Store the token type
+  bool _isConnected = false;
+  String _selectedCurrency = 'NIS';
+  String? _userName;
+  String? _userEmail;
+  String? _userPhotoUrl;
+  String? _accessToken;
+  String? _tokenType;
 
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
@@ -67,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   Future<void> _handleGoogleSignIn() async {
-    print('Attempting Google sign-in...'); // Log the login attempt
+    print('Attempting Google sign-in...');
     try {
       GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser != null) {
@@ -77,13 +78,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         setState(() {
           _userName = googleUser.displayName;
           _userEmail = googleUser.email;
-          _userPhotoUrl = googleUser.photoUrl; // Get the user's profile photo
+          _userPhotoUrl = googleUser.photoUrl;
         });
 
-        print('Google sign-in successful!'); // Log successful login
-        print('User Email: $_userEmail'); // Log user email
-        print('Display Name: $_userName'); // Log display name
-        print('ID Token: $idToken'); // Log the ID token
+        print('Google sign-in successful!');
+        print('User Email: $_userEmail');
+        print('Display Name: $_userName');
+        print('ID Token: $idToken');
 
         await _sendIdTokenToBackend(idToken);
       }
@@ -110,7 +111,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         _tokenType = responseBody['token_type'];
 
         print('Server login response: ${response.body}');
-        // Now wait for the user to press "Continue to App"
       } else {
         print('Server error: ${response.body}');
       }
@@ -126,8 +126,19 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         builder: (context) => CameraScreen(
           camera: widget.camera,
           selectedCurrency: _selectedCurrency,
-          accessToken: _accessToken!, // Pass access token
-          tokenType: _tokenType!, // Pass token type
+          accessToken: _accessToken!,
+          tokenType: _tokenType!,
+        ),
+      ),
+    );
+  }
+
+  void _openGallery() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => GalleryScreen(
+          accessToken: _accessToken!, // Pass access token to the gallery screen
         ),
       ),
     );
@@ -147,14 +158,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Application Logo (Original Shape)
               Image.asset(
                 'assets/logo.jpeg',
                 height: 100,
               ),
               SizedBox(height: 20),
-
-              // User Profile Section
               if (_userName != null)
                 Card(
                   elevation: 4.0,
@@ -165,7 +173,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     padding: const EdgeInsets.all(16.0),
                     child: Row(
                       children: [
-                        // Profile Picture
                         CircleAvatar(
                           radius: 40,
                           backgroundImage: _userPhotoUrl != null
@@ -174,8 +181,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   as ImageProvider,
                         ),
                         SizedBox(width: 20),
-
-                        // User Details
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -196,8 +201,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                 ),
               SizedBox(height: 20),
-
-              // Description Text
               Text(
                 "Snap and detect the value of your currency!",
                 style: TextStyle(
@@ -207,8 +210,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
-
-              // Connectivity Message (Always displayed)
               Text(
                 _connectivityMessage,
                 style: TextStyle(
@@ -217,8 +218,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 20),
-
-              // Currency Selection Dropdown (only shown if user is logged in)
               if (_userName != null)
                 Column(
                   children: [
@@ -250,8 +249,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     SizedBox(height: 20),
                   ],
                 ),
-
-              // Instructional Text for Google Login (only shown if user is not logged in)
               if (_userName == null)
                 Column(
                   children: [
@@ -264,8 +261,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 10),
-
-                    // Google Sign-In Button with Press Indicator
                     InkWell(
                       onTap: _handleGoogleSignIn,
                       borderRadius: BorderRadius.circular(50),
@@ -291,18 +286,53 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ],
                 ),
               SizedBox(height: 20),
-
-              // Continue to App Button (after login)
               if (_userName != null)
-                ElevatedButton(
-                  onPressed: _isConnected ? _continueToApp : null,
-                  child: Text('Continue to App'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 31, 133, 31),
-                    foregroundColor: Colors.white,
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
+                Column(
+                  children: [
+                    ElevatedButton(
+                      onPressed: _isConnected ? _continueToApp : null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Capture'),
+                          SizedBox(width: 8),
+                          Icon(Icons.camera_alt),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 31, 133, 31),
+                        foregroundColor: Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        textStyle: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _isConnected ? _openGallery : null,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Gallery'),
+                          SizedBox(width: 18),
+                          Icon(Icons.photo_library),
+                        ],
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 31, 133, 31),
+                        foregroundColor: Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        textStyle: TextStyle(fontSize: 18),
+                      ),
+                    ),
+                  ],
                 ),
             ],
           ),
