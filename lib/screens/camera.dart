@@ -64,6 +64,9 @@ class _CameraScreenState extends State<CameraScreen> {
     });
 
     try {
+      // Stop the camera preview
+      await _controller.pausePreview();
+
       // Check if the image file exists
       if (!await File(imagePath).exists()) {
         throw Exception("Image file does not exist at the path: $imagePath");
@@ -131,6 +134,9 @@ class _CameraScreenState extends State<CameraScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error: $e')),
       );
+    } finally {
+      // Resume the camera preview
+      await _controller.resumePreview();
     }
   }
 
