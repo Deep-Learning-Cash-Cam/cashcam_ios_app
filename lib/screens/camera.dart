@@ -64,19 +64,15 @@ class _CameraScreenState extends State<CameraScreen> {
     });
 
     try {
-      // Stop the camera preview
       await _controller.pausePreview();
 
-      // Check if the image file exists
       if (!await File(imagePath).exists()) {
         throw Exception("Image file does not exist at the path: $imagePath");
       }
 
-      // Read and encode the image to base64
       final bytes = await File(imagePath).readAsBytes();
       final base64Image = base64Encode(bytes);
 
-      // Prepare the headers and body
       final headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ${widget.accessToken}',
@@ -86,7 +82,6 @@ class _CameraScreenState extends State<CameraScreen> {
         'return_currency': widget.selectedCurrency,
       });
 
-      // Send the request to the server
       final response = await http.post(
         Uri.parse(
             'http://ec2-54-197-155-194.compute-1.amazonaws.com/api/predict'),
@@ -98,8 +93,8 @@ class _CameraScreenState extends State<CameraScreen> {
         final responseBody = jsonDecode(response.body);
         final annotatedImageBase64 = responseBody['image'];
         final currencies = responseBody['currencies'] as Map<String, dynamic>;
+        final imageId = responseBody['image_id'];
 
-        // Extract the 'return_currency_value' from the specific currency
         final currencyData = currencies.entries.first.value;
         final returnCurrencyValue =
             (currencyData['return_currency_value'] as num).toDouble();
@@ -116,6 +111,8 @@ class _CameraScreenState extends State<CameraScreen> {
               annotatedImageBase64: annotatedImageBase64,
               currencies: currencies,
               selectedCurrency: widget.selectedCurrency,
+              imageId: imageId, // Pass imageId to StatisticsScreen
+              accessToken: widget.accessToken, // Pass accessToken
             ),
           ),
         );
@@ -135,7 +132,6 @@ class _CameraScreenState extends State<CameraScreen> {
         SnackBar(content: Text('Error: $e')),
       );
     } finally {
-      // Resume the camera preview
       await _controller.resumePreview();
     }
   }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 final Map<String, Map<String, String>> currencyDetails = {
   'USD_C_1': {'image': 'assets/USD_C_1.png', 'name': '1 Cent (USD)'},
@@ -42,22 +43,55 @@ final Map<String, Map<String, String>> currencyDetails = {
   'NIS_B_200': {'image': 'assets/NIS_B_200.png', 'name': '200 Shekels (NIS)'},
 };
 
-class StatisticsScreen extends StatelessWidget {
+class StatisticsScreen extends StatefulWidget {
   final String imagePath;
   final String annotatedImageBase64;
   final Map<String, dynamic> currencies;
   final String selectedCurrency;
+  final String imageId;
+  final String accessToken;
 
   StatisticsScreen({
     required this.imagePath,
     required this.annotatedImageBase64,
     required this.currencies,
     required this.selectedCurrency,
+    required this.imageId,
+    required this.accessToken,
   });
 
   @override
+  _StatisticsScreenState createState() => _StatisticsScreenState();
+}
+
+class _StatisticsScreenState extends State<StatisticsScreen> {
+  bool _isReported = false;
+
+  Future<void> _reportIncorrectRecognition(BuildContext context) async {
+    try {
+      final response = await http.post(
+        Uri.parse(
+            'http://ec2-54-197-155-194.compute-1.amazonaws.com:80/api/flag_image/${widget.imageId}'),
+        headers: {
+          'Authorization': 'Bearer ${widget.accessToken}',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        setState(() {
+          _isReported = true;
+        });
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: $e')),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double totalAmount = currencies.entries.fold(
+    double totalAmount = widget.currencies.entries.fold(
       0.0,
       (sum, entry) {
         double itemTotalValue =
@@ -77,27 +111,49 @@ class StatisticsScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.memory(base64Decode(annotatedImageBase64)),
+              Stack(
+                children: [
+                  Image.memory(base64Decode(widget.annotatedImageBase64)),
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: ElevatedButton(
+                      onPressed: _isReported
+                          ? null
+                          : () => _reportIncorrectRecognition(context),
+                      child: Text(_isReported ? 'Thanks' : 'Report'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor:
+                            _isReported ? Colors.green : Colors.red,
+                        foregroundColor: Colors.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        textStyle: TextStyle(fontSize: 12),
+                        // Define disabled background color and text color
+                        disabledBackgroundColor: Colors.green,
+                        disabledForegroundColor: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
               SizedBox(height: 16),
               Text(
                 'Detected Currencies:',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              for (var entry in currencies.entries)
-                if (currencyDetails.containsKey(entry.key))
-                  Card(
-                    child: ListTile(
-                      leading: Image.asset(
-                        currencyDetails[entry.key]!['image']!,
-                        width: 50,
-                        height: 50,
-                      ),
-                      title: Text(currencyDetails[entry.key]!['name']!),
-                      subtitle: Text(
-                        '${entry.value['quantity']} items, ${entry.value['quantity'] * entry.value['return_currency_value']} $selectedCurrency',
-                      ),
+              for (var entry in widget.currencies.entries)
+                Card(
+                  child: ListTile(
+                    title: Text('${entry.key}'),
+                    subtitle: Text(
+                      '${entry.value['quantity']} items, ${entry.value['quantity'] * entry.value['return_currency_value']} ${widget.selectedCurrency}',
                     ),
                   ),
+                ),
               SizedBox(height: 16),
               Text(
                 'Total Amount:',
@@ -106,7 +162,7 @@ class StatisticsScreen extends StatelessWidget {
               Card(
                 child: ListTile(
                   title: Text('Total'),
-                  subtitle: Text('$totalAmount $selectedCurrency'),
+                  subtitle: Text('$totalAmount ${widget.selectedCurrency}'),
                 ),
               ),
             ],
