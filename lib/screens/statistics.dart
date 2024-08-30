@@ -132,7 +132,6 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
                           borderRadius: BorderRadius.circular(8.0),
                         ),
                         textStyle: TextStyle(fontSize: 12),
-                        // Define disabled background color and text color
                         disabledBackgroundColor: Colors.green,
                         disabledForegroundColor: Colors.white,
                       ),
@@ -148,7 +147,15 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               for (var entry in widget.currencies.entries)
                 Card(
                   child: ListTile(
-                    title: Text('${entry.key}'),
+                    leading: Image.asset(
+                      currencyDetails[entry.key]?['image'] ??
+                          'assets/default_currency.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                    title: Text(
+                      currencyDetails[entry.key]?['name'] ?? entry.key,
+                    ),
                     subtitle: Text(
                       '${entry.value['quantity']} items, ${entry.value['quantity'] * entry.value['return_currency_value']} ${widget.selectedCurrency}',
                     ),
