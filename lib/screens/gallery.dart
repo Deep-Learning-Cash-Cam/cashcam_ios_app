@@ -2,8 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart'; // Import for date formatting
-import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'statistics.dart'; // Import for currency details
 
 class GalleryScreen extends StatefulWidget {
   final String accessToken;
@@ -99,6 +98,8 @@ class _GalleryScreenState extends State<GalleryScreen> {
                             builder: (context) => FullScreenImage(
                               base64Image: image['base64_string'],
                               dateCaptured: _formatDate(image['upload_date']),
+                              currencies:
+                                  image['currencies'], // Pass currencies
                             ),
                           ),
                         );
@@ -146,8 +147,13 @@ class _GalleryScreenState extends State<GalleryScreen> {
 class FullScreenImage extends StatelessWidget {
   final String base64Image;
   final String dateCaptured;
+  final Map<String, dynamic> currencies;
 
-  FullScreenImage({required this.base64Image, required this.dateCaptured});
+  FullScreenImage({
+    required this.base64Image,
+    required this.dateCaptured,
+    required this.currencies,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -156,22 +162,53 @@ class FullScreenImage extends StatelessWidget {
         title: Text('Image Details'),
         backgroundColor: const Color.fromARGB(255, 31, 133, 31),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Image.memory(
-                base64Decode(base64Image),
-                fit: BoxFit.contain,
-              ),
+            Image.memory(
+              base64Decode(base64Image),
+              fit: BoxFit.contain,
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Captured on: $dateCaptured',
                 style: TextStyle(fontSize: 18, color: Colors.black),
+                textAlign: TextAlign.center,
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Detected Currencies:',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: currencies.length,
+              itemBuilder: (context, index) {
+                String key = currencies.keys.elementAt(index);
+                int amount = currencies[key];
+                return Card(
+                  child: ListTile(
+                    leading: Image.asset(
+                      currencyDetails[key]?['image'] ??
+                          'assets/default_currency.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                    title: Text(
+                      currencyDetails[key]?['name'] ?? key,
+                    ),
+                    subtitle: Text(
+                      'Amount: $amount',
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),
